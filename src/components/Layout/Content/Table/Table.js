@@ -1,28 +1,28 @@
-import { useQuery } from '@apollo/client';
+import { useQuery, useLazyQuery } from '@apollo/client';
 import GetTrades from '../../../../graphql/Queries/Trades'
-import React from "react"
+import GetService from '../../../../graphql/Queries/Service'
+import GetLeague from '../../../../graphql/Queries/League'
+
+import React, { useEffect, useState } from "react"
 import { Table, Tag, Space } from 'antd';
 
 const columns = [
     {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
+      title: 'Service',
+      dataIndex: 'serviceid',
+      key: 'serviceid',
+      render: text => serviceName({text})
     },
     {
-      title: 'LeagueID',
+      title: 'League',
       dataIndex: 'leagueid',
       key: 'leagueid',
+      render: text => leagueName({text})
     },
     {
-      title: 'UserID',
+      title: 'User',
       dataIndex: 'userid',
       key: 'userid',
-    },
-    {
-        title: 'ServiceID',
-        dataIndex: 'serviceid',
-        key: 'serviceid',
     },
     {
         title: 'Price',
@@ -41,19 +41,43 @@ const columns = [
     },
   ];
 
+const serviceName = (id) => {
+  const { loading, error, data } = useQuery(GetService, {
+    variables: { id: id.text }
+  });
+
+  if (loading) return null;
+  if (error) return `Error! ${error}`;
+
+  return (
+    <span>{data.service.name}</span>
+  )
+}
+
+const leagueName = (id) => {
+  const { loading, error, data } = useQuery(GetLeague, {
+    variables: { id: id.text }
+  });
+
+  if (loading) return null;
+  if (error) return `Error! ${error}`;
+
+  return (
+    <span>{data.league.name}</span>
+  )
+}
+
 const table = () => {
     const { loading, error, data } = useQuery(GetTrades);
-    
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
 
-        console.log(data)
-
-        return (
-        <Table
-            dataSource={data.trades}
-            columns={columns}
-        />
+    return (
+      <Table
+          dataSource={data.trades}
+          columns={columns}
+      />
     );
   }
 

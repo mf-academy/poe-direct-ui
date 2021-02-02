@@ -14,8 +14,7 @@ const header = () => {
                 <Col span={6}></Col>
                 <Col span={6}></Col>
                 <Col span={6}></Col>
-                <Col span={6}><Space><Leagues /><Divider type="vertical" />
-<Signin /></Space></Col>
+                <Col span={6}><Space><Leagues /><Divider type="vertical" /><Signin /></Space></Col>
             </Row>
         </Header>
     );
