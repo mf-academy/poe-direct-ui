@@ -4,6 +4,12 @@ const trades = gql`
   query GetTrades {
     trades {
       id
+      leagueid
+      userid
+      serviceid
+      price
+      currency
+      status
     }
   }
 `;
