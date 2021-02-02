@@ -2,6 +2,7 @@ import { useQuery, useLazyQuery } from '@apollo/client';
 import GetTrades from '../../../../graphql/Queries/Trades'
 import GetService from '../../../../graphql/Queries/Service'
 import GetLeague from '../../../../graphql/Queries/League'
+import GetUser from '../../../../graphql/Queries/User'
 
 import React, { useEffect, useState } from "react"
 import { Table, Tag, Space } from 'antd';
@@ -23,6 +24,7 @@ const columns = [
       title: 'User',
       dataIndex: 'userid',
       key: 'userid',
+      render: text => userName({text})
     },
     {
         title: 'Price',
@@ -36,10 +38,32 @@ const columns = [
     },
     {
         title: 'Status',
-        dataIndex: 'status',
+        dataIndex: 'userid',
         key: 'status',
+        render: text => statusBadge({text})
     },
   ];
+
+const statusBadge = (id) => {
+  const { loading, error, data } = useQuery(GetUser, {
+    variables: { id: id.text }
+  });
+
+  if (loading) return null;
+  if (error) return `Error! ${error}`;
+
+  if(data.user.status == "true") {
+    return (
+      <Tag color={"green"}>
+        Online
+      </Tag>
+    )
+  } else {
+    return ( <Tag color={"red"}>
+      Offline
+    </Tag> )
+  }
+}
 
 const serviceName = (id) => {
   const { loading, error, data } = useQuery(GetService, {
@@ -65,6 +89,19 @@ const leagueName = (id) => {
   return (
     <span>{data.league.name}</span>
   )
+}
+
+const userName = (id) => {
+  const { loading, error, data } = useQuery(GetUser, {
+    variables: { id: id.text }
+  });
+
+  if (loading) return null;
+  if (error) return `Error! ${error}`;
+
+  return (
+    <span>{data.user.name}</span>
+  ) 
 }
 
 const table = () => {
