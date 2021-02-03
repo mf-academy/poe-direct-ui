@@ -9,4 +9,4 @@ const services = gql`
   }
 `;
 
-export default categories
+export default services
