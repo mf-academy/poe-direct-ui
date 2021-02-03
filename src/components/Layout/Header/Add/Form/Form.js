@@ -56,12 +56,6 @@ const TradeForm = (props) => {
       >
         <SelectCurrency onChange={onCurrencyChange}/>
       </Form.Item>
-
-      <Form.Item {...tailLayout}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
     </Form>
   );
 };
