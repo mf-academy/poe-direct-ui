@@ -41,9 +41,9 @@ const Sidebar = () => {
                 height: '100vh'
             }}
         >
-                  <div className="logo" />
+            <div className="logo"><img src="https://poe-direct.s3.amazonaws.com/icons/logo/poe.png" width="100%" height="auto"/></div>
 
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} onClick={handleClick} selectedKeys={[id]}>
+            <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} onClick={handleClick} selectedKeys={[id ]}>
                 {
                     data.Categories.map(({id, name, icon}) => (
                         <Menu.Item key={id} icon={<img src={icon} width="auto" height="100%" />}>

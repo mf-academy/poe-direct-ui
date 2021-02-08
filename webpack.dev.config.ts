@@ -44,6 +44,12 @@ const config: webpack.Configuration = {
         }
       ]
       },
+      {
+        test: /\.(ttf|eot|woff|woff2)$/,
+        use: {
+          loader: 'url-loader',
+        },
+      },
     ],
   },
   resolve: {

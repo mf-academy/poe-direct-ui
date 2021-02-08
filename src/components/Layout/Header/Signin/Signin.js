@@ -3,7 +3,7 @@ import React from "react"
 
 const Signin = () => {
     return (
-        <Button type="primary">Sign in</Button>
+        <Button type="primary" className="HeaderBtn">Sign in</Button>
     );
   }
 

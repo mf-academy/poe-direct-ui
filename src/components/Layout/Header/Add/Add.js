@@ -99,7 +99,7 @@ const Add = () => {
     
     return (
         <>
-        <Button type="primary" onClick={showModal}>
+        <Button type="primary" onClick={showModal} className="HeaderBtn">
             Add Listing
         </Button>
         <Modal title="Add New Listing" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>

@@ -8,10 +8,8 @@ const { Header } = Layout;
 
 const header = () => {
     return (
-        <Header
-            className="site-layout-sub-header-background" style={{ padding: 0 }}
-            >
-            <Row>
+        <Header>
+            <Row className="HeaderRow">
                 <Col span={6}><Add /></Col>
                 <Col span={6}></Col>
                 <Col span={6}></Col>

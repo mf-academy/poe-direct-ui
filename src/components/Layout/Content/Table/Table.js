@@ -135,6 +135,8 @@ const table = () => {
       <Table
           dataSource={data.Trades}
           columns={columns}
+          className='content-table'
+          rowClassName={(record, index) => index % 2 === 0 ? 'table-row-light' :  'table-row-dark'}
       />
     );
   }

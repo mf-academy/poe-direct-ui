@@ -8,7 +8,7 @@ import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/i
 
 const layout = () => {
     return (
-        <Layout>
+        <Layout className="Layout">
             <Sidebar />
             <Layout>
               <Header />
