@@ -3,8 +3,18 @@ import Layout from "./components/Layout/Layout"
 import React, { useState, useCallback } from "react"
 import { Context } from "./context/Context.js";
 
+const defaultCollapsed = () => {
+  const { innerWidth: width, innerHeight: height } = window;
+
+  if (innerWidth < 992) {
+    return true
+  }
+
+  return false
+}
+
 function App() {
-  const [state, setState] = useState({ category: null, league: null, sidebar: false })
+  const [state, setState] = useState({ category: null, league: null, sidebar: defaultCollapsed() })
 
   const setContext = useCallback(
     updates => {
