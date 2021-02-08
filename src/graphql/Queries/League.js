@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 const league = gql`
     query GetLeague($id: ID) {
-        league(id: $id) {
+        League(id: $id) {
             id
             name
         }

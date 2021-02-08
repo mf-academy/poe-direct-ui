@@ -1,15 +1,11 @@
 import { gql, useMutation } from '@apollo/client';
 
 const trade = gql`
-  mutation PutTrade($userid: String!, $leagueid: String!, $serviceid: String!, $price: Int!, $currency: String!) {
-    putTrade(trade: { userid: $userid, leagueid: $leagueid, serviceid: $serviceid, price: $price, currency: $currency, status: true }) {
+  mutation PutTrade($price: Int!, $currency: String!, $status: Boolean) {
+    CreateTrade(price: $price, currency: $currency, status: $status) {
       id
-      leagueid
-      userid
-      serviceid
       price
       currency
-      status
     }
   }
 `;

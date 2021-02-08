@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 const categories = gql`
   query GetCategories {
-    categories {
+    Categories {
       id
       name
     }

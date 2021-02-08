@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 const service = gql`
     query GetService($id: ID) {
-        service(id: $id) {
+        Service(id: $id) {
             id
             name
         }

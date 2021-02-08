@@ -2,10 +2,10 @@ import { gql } from '@apollo/client';
 
 const league = gql`
     query GetTrade($id: ID) {
-        trade(id: $id) {
+        Trade(id: $id) {
             id
-            leagueid
-            serviceid
+            league
+            service
             price
             currency
             status

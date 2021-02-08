@@ -16,7 +16,7 @@ const selectservice = (props) => {
         allowClear
         onChange={props.onChange}
       >
-        {data.services.map(service => {
+        {data.Services.map(service => {
             return <Select.Option key={service.id} value={service.id}>{service.name}</Select.Option>
         })}
       </Select>

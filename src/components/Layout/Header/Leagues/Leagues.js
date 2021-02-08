@@ -15,16 +15,18 @@ const Leagues = () => {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
 
+        console.log(data)
+
     // Configure our context the first time a page loads just in case.
     if (context == null) {
-        setContext(data.leagues[0].id)
+        setContext(data.Leagues[0].id)
     }
 
     return (
-        <Select defaultValue={data.leagues[0].name}style={{ width: 120 }} onChange={handleChange} defaultActiveFirstOption={true}>
+        <Select defaultValue={data.Leagues[0].name}style={{ width: 120 }} onChange={handleChange} defaultActiveFirstOption={true}>
             {
-                data.leagues.map(({id, name}) => (
-                    <Option value={id}>{name}</Option>
+                data.Leagues.map(({id, name}) => (
+                    <Select.Option value={id}>{name}</Select.Option>
                 ))
             }
         </Select>

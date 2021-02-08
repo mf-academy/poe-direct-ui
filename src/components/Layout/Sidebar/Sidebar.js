@@ -12,6 +12,8 @@ const Sidebar = () => {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
 
+        console.log(data)
+
     return (
         <Sider
             breakpoint="lg"
@@ -30,7 +32,7 @@ const Sidebar = () => {
 
             <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
                 {
-                    data.categories.map(({id, name}) => (
+                    data.Categories.map(({id, name}) => (
                         <Menu.Item key={id} icon={<UserOutlined />}>
                         {name}
                         </Menu.Item>

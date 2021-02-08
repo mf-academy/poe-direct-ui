@@ -10,21 +10,21 @@ import { Table, Tag, Space } from 'antd';
 const columns = [
     {
       title: 'Service',
-      dataIndex: 'serviceid',
-      key: 'serviceid',
-      render: text => serviceName({text})
+      dataIndex: 'service',
+      key: 'service',
+      render: service => service.name
     },
     {
       title: 'League',
-      dataIndex: 'leagueid',
-      key: 'leagueid',
-      render: text => leagueName({text})
+      dataIndex: 'league',
+      key: 'league',
+      render: league => league.name
     },
     {
       title: 'User',
-      dataIndex: 'userid',
-      key: 'userid',
-      render: text => userName({text})
+      dataIndex: 'user',
+      key: 'user',
+      render: user => user.name
     },
     {
         title: 'Price',
@@ -38,21 +38,15 @@ const columns = [
     },
     {
         title: 'Status',
-        dataIndex: 'userid',
+        dataIndex: 'user',
         key: 'status',
-        render: text => statusBadge({text})
-    },
+        render: user => statusBadge({user})
+      },
   ];
 
-const statusBadge = (id) => {
-  const { loading, error, data } = useQuery(GetUser, {
-    variables: { id: id.text }
-  });
-
-  if (loading) return null;
-  if (error) return `Error! ${error}`;
-
-  if(data.user.status == "true") {
+const statusBadge = (user) => {
+  console.log(user)
+  if(user.user.status == true) {
     return (
       <Tag color={"green"}>
         Online
@@ -65,54 +59,17 @@ const statusBadge = (id) => {
   }
 }
 
-const serviceName = (id) => {
-  const { loading, error, data } = useQuery(GetService, {
-    variables: { id: id.text }
-  });
-
-  if (loading) return null;
-  if (error) return `Error! ${error}`;
-
-  return (
-    <span>{data.service.name}</span>
-  )
-}
-
-const leagueName = (id) => {
-  const { loading, error, data } = useQuery(GetLeague, {
-    variables: { id: id.text }
-  });
-
-  if (loading) return null;
-  if (error) return `Error! ${error}`;
-
-  return (
-    <span>{data.league.name}</span>
-  )
-}
-
-const userName = (id) => {
-  const { loading, error, data } = useQuery(GetUser, {
-    variables: { id: id.text }
-  });
-
-  if (loading) return null;
-  if (error) return `Error! ${error}`;
-
-  return (
-    <span>{data.user.name}</span>
-  ) 
-}
-
 const table = () => {
     const { loading, error, data } = useQuery(GetTrades);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
 
+    console.log(data)
+      
     return (
       <Table
-          dataSource={data.trades}
+          dataSource={data.Trades}
           columns={columns}
       />
     );

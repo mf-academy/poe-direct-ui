@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 const categories = gql`
   query GetLeagues {
-    leagues {
+    Leagues {
       id
       name
     }
