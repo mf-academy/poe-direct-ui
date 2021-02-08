@@ -5,6 +5,7 @@ const categories = gql`
     Categories {
       id
       name
+      icon
     }
   }
 `;

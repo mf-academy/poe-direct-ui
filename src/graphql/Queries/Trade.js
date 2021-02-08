@@ -7,7 +7,10 @@ const league = gql`
             league
             service
             price
-            currency
+            currency {
+                id
+                name
+            }
             status
         }
     }

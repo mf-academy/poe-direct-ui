@@ -6,6 +6,7 @@ import PutTrade from '../../../../graphql/Mutations/PutTrade';
 import AddTradeLeague from '../../../../graphql/Mutations/AddTradeLeague';
 import AddTradeService from '../../../../graphql/Mutations/AddTradeService';
 import AddTradeUser from '../../../../graphql/Mutations/AddTradeUser';
+import AddTradeCurrency from '../../../../graphql/Mutations/AddTradeCurrency';
 import React, {useState, useContext } from "react"
 import { Button, Modal} from 'antd';
 import { Context } from "../../../../context/Context"
@@ -17,6 +18,7 @@ const Add = () => {
     const [tradeInput, setTradeInput] = useState({});
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [putTrade] = useMutation(PutTrade);
+    const [addTradeCurrency] = useMutation(AddTradeCurrency);
     const [addTradeLeague] = useMutation(AddTradeLeague);
     const [addTradeService] = useMutation(AddTradeService);
     const [addTradeUser] = useMutation(AddTradeUser);
@@ -74,6 +76,13 @@ const Add = () => {
         // TODO: User real user id from session.
         const addTradeUserResp = await addTradeUser({
             variables: { from: { id: tradeResponse.data.CreateTrade.id }, to: { id: "a68b9367-e214-44eb-9a5f-451463899ba2" } },
+        })
+
+        console.log(copyTradeInput)
+
+        // TODO: User real user id from session.
+        const addTradeCurrencyResp = await addTradeCurrency({
+            variables: { from: { id: tradeResponse.data.CreateTrade.id }, to: { id: copyTradeInput.currency } },
         })
 
         const addTradeServiceResp = await addTradeService({

@@ -16,7 +16,11 @@ const trades = gql`
         name
       }
       price
-      currency
+      currency {
+        id
+        name
+        icon
+      }
       status
     }
   }

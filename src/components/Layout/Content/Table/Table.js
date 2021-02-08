@@ -30,6 +30,7 @@ const columns = [
         title: 'Currency',
         dataIndex: 'currency',
         key: 'currency',
+        render: currency => currencyWithIcon(currency)
     },
     {
         title: 'Status',
@@ -44,9 +45,21 @@ const columns = [
     }
   ];
 
+const currencyWithIcon = (currency) => {
+
+  return (
+    <>
+      <Space size="small">
+      <img src={currency.icon} width="50%" height="auto" />
+      <span>{currency.name}</span>
+      </Space>
+    </>
+  )
+}
+
 const copyToClipboard = (e, user, row, setButtonValue) => {
   e.preventDefault();
-  navigator.clipboard.writeText(`@${user.character} I would like to buy your ${row.service.name} for ${row.price} ${row.currency}`)
+  navigator.clipboard.writeText(`@${user.character} I would like to buy your ${row.service.name} for ${row.price} ${row.currency.name}`)
   setButtonValue("Copied!")
 }
 

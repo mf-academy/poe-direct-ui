@@ -43,8 +43,8 @@ const Sidebar = () => {
 
             <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} onClick={handleClick}>
                 {
-                    data.Categories.map(({id, name}) => (
-                        <Menu.Item key={id} icon={<UserOutlined />}>
+                    data.Categories.map(({id, name, icon}) => (
+                        <Menu.Item key={id} icon={<img src={icon} width="auto" height="100%" />}>
                         {name}
                         </Menu.Item>
                     ))

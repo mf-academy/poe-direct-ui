@@ -1,11 +1,13 @@
 import { Select } from 'antd';
 import React, {useState} from "react"
+import GetCurrencies from '../../../../../../graphql/Queries/Currencies'
+import { useQuery } from '@apollo/client';
 
 const selectcurrency = (props) => {
-    const currencies = [
-        "exalt",
-        "chaos"
-    ]
+    const { loading, error, data } = useQuery(GetCurrencies);
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
 
     return (
       <Select
@@ -13,8 +15,8 @@ const selectcurrency = (props) => {
         allowClear
         onChange={props.onChange}
       >
-        {currencies.map(currency => {
-            return <Select.Option key={currency} value={currency}>{currency}</Select.Option>
+        {data.Currencies.map(currency => {
+            return <Select.Option key={currency.id} value={currency.id}>{currency.name}</Select.Option>
         })}
       </Select>
     );

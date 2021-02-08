@@ -5,6 +5,10 @@ const service = gql`
         Service(id: $id) {
             id
             name
+            category {
+                id
+                name
+            }
         }
     }
 `;

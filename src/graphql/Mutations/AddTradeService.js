@@ -18,7 +18,10 @@ const addtradeservice = gql`
                 name
             }
             price
-            currency
+            currency {
+                id
+                name
+            }
             status
         }
         to {
