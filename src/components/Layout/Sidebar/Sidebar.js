@@ -10,7 +10,9 @@ const { Sider } = Layout;
 const Sidebar = () => {
     const [id, setId] = useState(null);
     const { category, setContext } = useContext(Context);
-    const { loading, error, data } = useQuery(GetCategories);
+    const { loading, error, data } = useQuery(GetCategories, {
+        onCompleted: (data) => setId(data.Categories[0].id)
+    });
 
     const handleClick = e => {
         setId(e.key)
@@ -22,7 +24,7 @@ const Sidebar = () => {
         }
     }, [category, id, setContext])
 
-    if (loading) return <p>Loading...</p>;
+    if (loading || id == null) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
 
     return (
@@ -41,7 +43,7 @@ const Sidebar = () => {
         >
                   <div className="logo" />
 
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} onClick={handleClick}>
+            <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} onClick={handleClick} selectedKeys={[id]}>
                 {
                     data.Categories.map(({id, name, icon}) => (
                         <Menu.Item key={id} icon={<img src={icon} width="auto" height="100%" />}>

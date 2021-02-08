@@ -7,7 +7,9 @@ import { Context, updateLeagueContext } from "../../../../context/Context"
 const Leagues = () => {
     const [id, setId] = useState(null);
     const { league, setContext } = useContext(Context);
-    const { loading, error, data } = useQuery(GetLeagues);
+    const { loading, error, data } = useQuery(GetLeagues, {
+        onCompleted: (data) => setId(data.Leagues[0].id)
+    });
 
     const handleChange = e => {
         console.log(e)
@@ -20,11 +22,11 @@ const Leagues = () => {
         }
     }, [id, league, setContext])
 
-    if (loading) return <p>Loading...</p>;
+    if (loading || id == null) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
 
     return (
-        <Select style={{ width: 120 }} onChange={handleChange} defaultActiveFirstOption={true}>
+        <Select defaultValue={id} style={{ width: 120 }} onChange={handleChange} defaultActiveFirstOption={true}>
             {
                 data.Leagues.map(({id, name}) => (
                     <Select.Option value={id}>{name}</Select.Option>
