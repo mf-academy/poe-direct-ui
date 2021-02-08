@@ -35,6 +35,8 @@ const selectservice = (props) => {
 
     return (
       <Select
+        showSearch
+        optionFilterProp="children"
         placeholder="Select your service below"
         allowClear
         onChange={props.onChange}

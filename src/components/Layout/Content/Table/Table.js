@@ -5,7 +5,7 @@ import GetLeague from '../../../../graphql/Queries/League'
 import GetUser from '../../../../graphql/Queries/User'
 
 import React, { useContext, useEffect, useState } from "react"
-import { Table, Tag, Space } from 'antd';
+import { Table, Tag, Space, Button } from 'antd';
 import { Context } from '../../../../context/Context';
 
 const columns = [
@@ -36,8 +36,27 @@ const columns = [
         dataIndex: 'user',
         key: 'status',
         render: user => statusBadge({user})
-      },
+    },
+    {
+        title: 'PM',
+        dataIndex: 'user',
+        render: (user, row) => pmButton(user, row)
+    }
   ];
+
+const copyToClipboard = (e, user, row, setButtonValue) => {
+  e.preventDefault();
+  navigator.clipboard.writeText(`@${user.character} I would like to buy your ${row.service.name} for ${row.price} ${row.currency}`)
+  setButtonValue("Copied!")
+}
+
+const pmButton = (user, row) => {
+    const [buttonValue, setButtonValue] = useState("Whisper")
+
+    return (
+      <Button type="primary" onClick={(e) => copyToClipboard(e, user, row, setButtonValue)}>{buttonValue}</Button>
+    )
+}
 
 const statusBadge = (user) => {
   console.log(user)
