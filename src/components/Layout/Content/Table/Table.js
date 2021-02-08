@@ -75,12 +75,12 @@ const statusBadge = (user) => {
   console.log(user)
   if(user.user.status == true) {
     return (
-      <Tag color={"green"}>
+      <Tag color="#87d068">
         Online
       </Tag>
     )
   } else {
-    return ( <Tag color={"red"}>
+    return ( <Tag color="#f50" style="width:100%">
       Offline
     </Tag> )
   }
