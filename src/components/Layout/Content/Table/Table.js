@@ -4,8 +4,9 @@ import GetService from '../../../../graphql/Queries/Service'
 import GetLeague from '../../../../graphql/Queries/League'
 import GetUser from '../../../../graphql/Queries/User'
 
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Table, Tag, Space } from 'antd';
+import { Context } from '../../../../context/Context';
 
 const columns = [
     {
@@ -13,12 +14,6 @@ const columns = [
       dataIndex: 'service',
       key: 'service',
       render: service => service.name
-    },
-    {
-      title: 'League',
-      dataIndex: 'league',
-      key: 'league',
-      render: league => league.name
     },
     {
       title: 'User',
@@ -60,10 +55,47 @@ const statusBadge = (user) => {
 }
 
 const table = () => {
-    const { loading, error, data } = useQuery(GetTrades);
+  const [variables, setVariables] = useState(null)
+  const [leagueId, setLeagueId] = useState(null)
+  const [categoryId, setCategoryId] = useState(null)
+  const { league, category, setContext } = useContext(Context)
+  const { loading, error, data } = useQuery(GetTrades, {
+    variables: variables
+  });
+
+  const generateFilter = (cat, lea) => {
+    return {
+      filter: {
+        service: {
+          category: {
+            id: cat
+          }
+        },
+        AND: {
+          league: {
+            id: lea
+          }
+        }
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (league != leagueId) {
+      setLeagueId(league)
+      setVariables(generateFilter(categoryId, league))
+    }
+
+    if (category != categoryId) {
+      setCategoryId(category)
+      setVariables(generateFilter(category, leagueId))
+    }
+  }, [league, category])
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
+    if (leagueId == null) return <p>Loading...</p>;
+    if (categoryId == null) return <p>Loading...</p>;
 
     console.log(data)
       

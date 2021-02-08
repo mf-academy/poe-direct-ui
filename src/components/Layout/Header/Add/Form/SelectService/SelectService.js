@@ -1,11 +1,34 @@
 import { useQuery } from '@apollo/client';
 import GetServices from '../../../../../../graphql/Queries/Services'
 import { Select } from 'antd';
-import React, {useState} from "react"
+import React, {useState, useContext, useEffect } from "react"
+import { Context } from "../../../../../../context/Context"
 
 
 const selectservice = (props) => {
-    const { loading, error, data } = useQuery(GetServices);
+    const [variables, setVariables] = useState(null)
+    const [categoryId, setCategoryId] = useState(null)
+    const { category, setContext } = useContext(Context)
+    const { loading, error, data } = useQuery(GetServices, {
+      variables: variables
+    });
+
+    const generateFilter = (cat) => {
+      return {
+        filter: {
+          category: {
+              id: cat
+            }
+          },
+        }
+    }
+    
+    useEffect(() => {
+      if (category != categoryId) {
+        setCategoryId(category)
+        setVariables(generateFilter(category))
+      }
+    }, [category])
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;

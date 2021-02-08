@@ -1,18 +1,29 @@
 import { UserOutlined } from "@ant-design/icons"
 import { useQuery } from '@apollo/client';
 import { Layout, Menu } from 'antd';
+import { Context, updateCategoryContext } from "../../../context/Context"
 import GetCategories from '../../../graphql/Queries/Categories'
-import React from "react"
+import React, { useContext, useEffect, useState } from "react"
 
 const { Sider } = Layout;
 
 const Sidebar = () => {
+    const [id, setId] = useState(null);
+    const { category, setContext } = useContext(Context);
     const { loading, error, data } = useQuery(GetCategories);
+
+    const handleClick = e => {
+        setId(e.key)
+    }
     
+    useEffect(() => {
+        if (category != id) {
+            setContext(updateCategoryContext(id))
+        }
+    }, [category, id, setContext])
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
-
-        console.log(data)
 
     return (
         <Sider
@@ -30,7 +41,7 @@ const Sidebar = () => {
         >
                   <div className="logo" />
 
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+            <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} onClick={handleClick}>
                 {
                     data.Categories.map(({id, name}) => (
                         <Menu.Item key={id} icon={<UserOutlined />}>

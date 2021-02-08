@@ -12,9 +12,9 @@ const addtradeservice = gql`
             user {
                 id
                 name
+                status
             }
             service {
-                id
                 name
             }
             price

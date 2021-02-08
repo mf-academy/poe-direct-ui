@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 const trades = gql`
-  query GetTrades {
-    Trades {
+  query GetTrades($filter: _TradeFilter) {
+    Trades(filter: $filter) {
       id
       league { 
         name
