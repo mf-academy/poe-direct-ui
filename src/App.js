@@ -1,11 +1,10 @@
-import logo from './logo.svg';
 import './App.less';
 import Layout from "./components/Layout/Layout"
 import React, { useState, useCallback } from "react"
 import { Context } from "./context/Context.js";
 
 function App() {
-  const [state, setState] = useState({ category: null, league: null })
+  const [state, setState] = useState({ category: null, league: null, sidebar: false })
 
   const setContext = useCallback(
     updates => {

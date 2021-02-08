@@ -1,5 +1,4 @@
-import { useQuery, useMutation} from '@apollo/client';
-import { Select } from 'antd';
+import { useMutation} from '@apollo/client';
 import Form from './Form/Form';
 import GetTrades from '../../../../graphql/Queries/Trades';
 import PutTrade from '../../../../graphql/Mutations/PutTrade';
@@ -11,7 +10,22 @@ import React, {useState, useContext } from "react"
 import { Button, Modal} from 'antd';
 import { Context } from "../../../../context/Context"
 
-// update: updateCache
+const generateFilter = (cat, lea) => {
+    return {
+        filter: {
+            service: {
+                category: {
+                    id: cat
+                }
+            },
+            AND: {
+                league: {
+                    id: lea
+                }
+            }
+        }
+    }
+}
 
 const Add = () => {
     const { league, category, setContext } = useContext(Context)
@@ -24,31 +38,13 @@ const Add = () => {
     const [addTradeUser] = useMutation(AddTradeUser);
 
     const updateCache = (cache, {data}) => {        
-        const generateFilter = (cat, lea) => {
-            return {
-              filter: {
-                service: {
-                  category: {
-                    id: cat
-                  }
-                },
-                AND: {
-                  league: {
-                    id: lea
-                  }
-                }
-              }
-            }
-        }
-        
         const existingTrades = cache.readQuery({
             query: GetTrades,
             variables: generateFilter(category, league)
         });
 
         const newTrade = data.AddTradeService.from;
-        console.log(newTrade)
-        console.log(existingTrades.Trades)
+
         cache.writeQuery({
             query: GetTrades,
             data: {Trades: [...existingTrades.Trades, newTrade]},
@@ -69,23 +65,20 @@ const Add = () => {
             variables: { ...copyTradeInput },
         })
         
-        const tradeLeagueResp = await addTradeLeague({
+        await addTradeLeague({
             variables: { from: { id: tradeResponse.data.CreateTrade.id }, to: { id: league } },
         })
 
         // TODO: User real user id from session.
-        const addTradeUserResp = await addTradeUser({
+        await addTradeUser({
             variables: { from: { id: tradeResponse.data.CreateTrade.id }, to: { id: "a68b9367-e214-44eb-9a5f-451463899ba2" } },
         })
 
-        console.log(copyTradeInput)
-
-        // TODO: User real user id from session.
-        const addTradeCurrencyResp = await addTradeCurrency({
+        await addTradeCurrency({
             variables: { from: { id: tradeResponse.data.CreateTrade.id }, to: { id: copyTradeInput.currency } },
         })
 
-        const addTradeServiceResp = await addTradeService({
+        await addTradeService({
             variables: { from: { id: tradeResponse.data.CreateTrade.id }, to: { id:  copyTradeInput.serviceid }},
             update: updateCache
         })

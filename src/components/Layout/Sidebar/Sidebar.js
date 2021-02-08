@@ -1,7 +1,6 @@
-import { UserOutlined } from "@ant-design/icons"
 import { useQuery } from '@apollo/client';
 import { Layout, Menu } from 'antd';
-import { Context, updateCategoryContext } from "../../../context/Context"
+import { Context, updateCategoryContext, updateSidebarContext } from "../../../context/Context"
 import GetCategories from '../../../graphql/Queries/Categories'
 import React, { useContext, useEffect, useState } from "react"
 
@@ -9,16 +8,24 @@ const { Sider } = Layout;
 
 const Sidebar = () => {
     const [id, setId] = useState(null);
-    const { category, setContext } = useContext(Context);
+    const { sidebar, category, setContext } = useContext(Context);
     const { loading, error, data } = useQuery(GetCategories, {
         onCompleted: (data) => setId(data.Categories[0].id)
     });
 
-    const handleClick = e => {
-        setId(e.key)
+    const collapse = () => {
+        setContext(updateSidebarContext(!sidebar))
+    }
+
+    const handleClick = event => {
+        setId(event.key)
     }
     
     useEffect(() => {
+        if (category != id) {
+            setContext(updateCategoryContext(id))
+        }
+
         if (category != id) {
             setContext(updateCategoryContext(id))
         }
@@ -30,16 +37,17 @@ const Sidebar = () => {
     return (
         <Sider
             breakpoint="lg"
+            onBreakpoint={() => {
+                collapse()
+            }}
+
             collapsedWidth="0"
-            onBreakpoint={broken => {
-                console.log(broken);
-            }}
-            onCollapse={(collapsed, type) => {
-                console.log(collapsed, type);
-            }}
             style={{
                 height: '100vh'
             }}
+            trigger={null}
+            collapsible
+            collapsed={sidebar}
         >
             <div className="logo"><img src="https://poe-direct.s3.amazonaws.com/icons/logo/poe.png" width="100%" height="auto"/></div>
 
@@ -47,7 +55,7 @@ const Sidebar = () => {
                 {
                     data.Categories.map(({id, name, icon}) => (
                         <Menu.Item key={id} icon={<img src={icon} width="auto" height="100%" />} className="SiderItem">
-                        {name}
+                            {name}
                         </Menu.Item>
                     ))
                 }

@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { Select } from 'antd';
+import { Select, Space } from 'antd';
 import GetLeagues from '../../../../graphql/Queries/Leagues'
 import React, { useContext, useState, useEffect } from "react"
 import { Context, updateLeagueContext } from "../../../../context/Context"
@@ -11,9 +11,8 @@ const Leagues = () => {
         onCompleted: (data) => setId(data.Leagues[0].id)
     });
 
-    const handleChange = e => {
-        console.log(e)
-        setId(e)
+    const handleChange = event => {
+        setId(event)
     }
     
     useEffect(() => {
@@ -26,13 +25,15 @@ const Leagues = () => {
     if (error) return <p>Error :(</p>;
 
     return (
-        <Select defaultValue={id} style={{ width: 120 }} onChange={handleChange} defaultActiveFirstOption={true}>
-            {
-                data.Leagues.map(({id, name}) => (
-                    <Select.Option value={id}>{name}</Select.Option>
-                ))
-            }
-        </Select>
+        <Space>
+            <Select defaultValue={id} onChange={handleChange} defaultActiveFirstOption={true} className="SelectLeague">
+                {
+                    data.Leagues.map(({id, name}) => (
+                        <Select.Option value={id}>{name}</Select.Option>
+                    ))
+                }
+            </Select>
+        </Space>
     );
   }
 

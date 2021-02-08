@@ -1,6 +1,7 @@
 import { Layout } from 'antd';
 import React from "react"
 import Table from "./Table/Table"
+import Search from "./Search/Search"
 
 const { Content } = Layout;
 
@@ -14,6 +15,7 @@ const content = () => {
                 minHeight: 280,
               }}
             >
+                <Search />
                 <Table />
         </Content>
     );

@@ -1,16 +1,5 @@
 @import '~antd/dist/antd.less'; // Import Ant Design styles by less entry
 
-.logo {
-  margin-bottom: 16px;
-  padding-bottom: 16px;
-}
-
-.site-layout-background {
-  background: #fff;
-}
-
-
-
 @font-face {
   font-family: 'Fontin';
   src: local('Fontin'),
@@ -22,10 +11,19 @@
 
 @font-family: 'Fontin', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif!;
 @font-size-base: 14px; // major text font size
+@primary-color: rgb(185, 156, 116);
+@border-color-base: #050505;
+@heading-color: #d6d6ce; // heading text color
+@text-color: #d6d6ce; // major text color
+@text-color-secondary: #bb9e74; // secondary text color
+@body-background: #1b1b1b;
+@layout-body-background:transparent ; 
+@component-background: #1b1b1b ;
+@layout-sider-background: #1b1b1b ;
+@layout-header-background:  transparent;
+@layout-footer-background:  transparent;
+@table-border-color: #050505;
 
-table {
-  border-color: black
-}
 .content-table {
    background-color: #1b1b1b;
  }
@@ -49,35 +47,74 @@ th.ant-table-cell {
   font-weight: bold
 }
 
-@primary-color: rgb(185, 156, 116);
-
-
-@border-color-base: #050505;
-@heading-color: #d6d6ce; // heading text color
-@text-color: #d6d6ce; // major text color
-@text-color-secondary: #bb9e74; // secondary text color
-
-@body-background: #1b1b1b;
-@layout-body-background:transparent ; 
-
-@component-background: #1b1b1b ;
-@layout-sider-background: #1b1b1b ;
-
-@layout-header-background:  transparent;
-
-@table-border-color: #050505;
-
 .HeaderBtn{
   background-color: #ef5e23;
 }
 
+.FooterRow {
+  background-color: transparent;
+}
+
+.SearchSelect{
+ width: 100%;
+ height: 30px;
+ padding-bottom: 20px;
+ margin-bottom: 20px;
+}
+
+.SelectLeague {
+  border-radius: 1px 0 3px 4px!;
+}
+
+.logo {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+}
+
+.LeagueInput {
+  background-color: #1b1b1b;
+  width: 100%;
+  height: 32px;
+  margin: 0 auto;
+  padding: 0 11px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+
+.Layout {
+  background-color: transparent;
+}
+
 body {
   background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/8fd505b7-1d62-42fa-ae28-60294fb112fa/dagxy78-e603ec01-1545-422c-bf33-0fa43fb92fdf.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvOGZkNTA1YjctMWQ2Mi00MmZhLWFlMjgtNjAyOTRmYjExMmZhXC9kYWd4eTc4LWU2MDNlYzAxLTE1NDUtNDIyYy1iZjMzLTBmYTQzZmI5MmZkZi5qcGcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.i0RtvYpr2-2wfp-sHvx7dcQHCB2ct79iJJh6Gfm1vE8");
-  background-position: center;
   background-repeat: no-repeat;
-  background-size: auto;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
   background-size: cover;
+  background-color: transparent;
+  background-attachment: fixed;
+  margin: 0;
+}
+
+table {
+  border-color: black
+}
+
+body,html {
+  margin: 0;
+  padding: 0;
+}
+
+.trigger {
+  display: inline-block;
+  padding: 0 0px;
+  position: relative;
+  font-size: 18px;
+  line-height: 64px;
+  cursor: pointer;
+  transition: color 0.3s;
+  z-index:9999;
+}
+
+.trigger:hover {
+  color: #1890ff;
 }

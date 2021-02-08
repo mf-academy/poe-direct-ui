@@ -1,8 +1,5 @@
-import { useQuery, useLazyQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import GetTrades from '../../../../graphql/Queries/Trades'
-import GetService from '../../../../graphql/Queries/Service'
-import GetLeague from '../../../../graphql/Queries/League'
-import GetUser from '../../../../graphql/Queries/User'
 
 import React, { useContext, useEffect, useState } from "react"
 import { Table, Tag, Space, Button } from 'antd';
@@ -42,7 +39,7 @@ const columns = [
         title: 'PM',
         dataIndex: 'user',
         render: (user, row) => pmButton(user, row)
-    }
+    },
   ];
 
 const currencyWithIcon = (currency) => {

@@ -1,9 +1,8 @@
 import { useQuery } from '@apollo/client';
-import GetServices from '../../../../../../graphql/Queries/Services'
 import { Select } from 'antd';
-import React, {useState, useContext, useEffect } from "react"
 import { Context } from "../../../../../../context/Context"
-
+import GetServices from '../../../../../../graphql/Queries/Services'
+import React, {useState, useContext, useEffect } from "react"
 
 const selectservice = (props) => {
     const [variables, setVariables] = useState(null)
