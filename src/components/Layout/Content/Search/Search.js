@@ -4,6 +4,12 @@ import React, { useContext, useEffect, useState } from "react"
 import { useQuery } from '@apollo/client';
 import GetTrades from '../../../../graphql/Queries/Trades'
 
+const isLoading = (loading, league, cat) => {
+  if (loading) return true;
+  if (league == null) return true;
+  if (cat == null) return true;
+}
+
 const search = () => {
     const [variables, setVariables] = useState(null)
     const [leagueId, setLeagueId] = useState(null)
@@ -39,11 +45,8 @@ const search = () => {
         setCategoryId(category)
       }
     }, [league, category])
-  
-      if (loading) return <p>Loading...</p>;
+
       if (error) return <p>Error :(</p>;
-      if (leagueId == null) return <p>Loading...</p>;
-      if (categoryId == null) return <p>Loading...</p>;
     
       console.log(data)
       
@@ -51,8 +54,9 @@ const search = () => {
         <Select
             showSearch
             className="SearchSelect"
+            loading={isLoading(loading, leagueId, categoryId)}
         >
-            {data.Trades.map(trade => {
+            {data?.Trades.map(trade => {
                 return <Select.Option key={trade.id} value={trade.id}>{trade.service.name}</Select.Option>
             })}
 

@@ -36,7 +36,7 @@ const columns = [
         render: user => statusBadge({user})
     },
     {
-        title: 'PM',
+        title: 'Actions',
         dataIndex: 'user',
         render: (user, row) => pmButton(user, row)
     },
@@ -109,30 +109,40 @@ const table = () => {
     }
   }
 
+  const isLoading = (loading, league, cat, variables) => {
+    console.log(variables)
+    console.log(loading, league, category)
+    if (loading) return true;
+    if (league == null) return true;
+    if (cat == null) return true;
+  }
+
   useEffect(() => {
-    if (league != leagueId) {
+    if (league != leagueId && categoryId == categoryId) {
       setLeagueId(league)
       setVariables(generateFilter(categoryId, league))
     }
 
-    if (category != categoryId) {
+    if (category != categoryId && league == leagueId) {
       setCategoryId(category)
       setVariables(generateFilter(category, leagueId))
     }
+
+    if (category != categoryId && league != leagueId) {
+      setCategoryId(category)
+      setLeagueId(league)
+      setVariables(generateFilter(category, league))  
+    }
   }, [league, category])
 
-    if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
-    if (leagueId == null) return <p>Loading...</p>;
-    if (categoryId == null) return <p>Loading...</p>;
 
-    console.log(data)
-      
     return (
       <Table
-          dataSource={data.Trades}
+          dataSource={data ? data.Trades : []}
           columns={columns}
           className='content-table'
+          loading={isLoading(loading, leagueId, categoryId, variables)}
           rowClassName={(record, index) => index % 2 === 0 ? 'table-row-light' :  'table-row-dark'}
       />
     );

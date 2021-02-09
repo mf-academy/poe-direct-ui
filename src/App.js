@@ -2,6 +2,9 @@ import './App.less';
 import Layout from "./components/Layout/Layout"
 import React, { useState, useCallback } from "react"
 import { Context } from "./context/Context.js";
+import {
+  BrowserRouter as Router,
+} from "react-router-dom";
 
 const defaultCollapsed = () => {
   const { innerWidth: width, innerHeight: height } = window;
@@ -32,11 +35,13 @@ function App() {
   )
 
   return (
-    <Context.Provider value={getContextValue()}>
-      <div className="App">
-        <Layout />
-      </div>
-    </Context.Provider>
+    <Router>
+      <Context.Provider value={getContextValue()}>
+        <div className="App">
+          <Layout />
+        </div>
+      </Context.Provider>
+    </Router>
   );
 }
 

@@ -1,8 +1,17 @@
 import { useQuery } from '@apollo/client';
-import { Select, Space } from 'antd';
+import { Select, Space, Spin, Row } from 'antd';
 import GetLeagues from '../../../../graphql/Queries/Leagues'
 import React, { useContext, useState, useEffect } from "react"
 import { Context, updateLeagueContext } from "../../../../context/Context"
+
+const generateSelectItems = (id, data, loading, error) => {
+    if (error) return <p>Error :(</p>;
+    if(data == null) return <></>
+    
+    return data.Leagues.map(({id, name}) => (
+        <Select.Option value={id}>{name}</Select.Option>
+    ))
+}
 
 const Leagues = () => {
     const [id, setId] = useState(null);
@@ -18,20 +27,14 @@ const Leagues = () => {
     useEffect(() => {
         if (league != id) {
             setContext(updateLeagueContext(id))
+            setId(id)
         }
     }, [id, league, setContext])
 
-    if (loading || id == null) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
-
     return (
         <Space>
-            <Select defaultValue={id} onChange={handleChange} defaultActiveFirstOption={true} className="SelectLeague">
-                {
-                    data.Leagues.map(({id, name}) => (
-                        <Select.Option value={id}>{name}</Select.Option>
-                    ))
-                }
+            <Select value={id} onChange={handleChange} className="SelectLeague"defaultActiveFirstOption={true} loading={loading} style={{ width: 200 }}>
+                { generateSelectItems(id, data, loading, error) }
             </Select>
         </Space>
     );

@@ -12,12 +12,14 @@
     "loader-utils": "^2.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
     "style-loader": "^2.0.0",
     "web-vitals": "^0.2.4",
     "wepback": "^1.0.0"
   },
   "scripts": {
     "build": "react-scripts build",
+    "release": "webpack --config webpack.dev.config.ts",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start": "webpack serve --config webpack.dev.config.ts"
