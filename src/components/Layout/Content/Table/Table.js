@@ -2,8 +2,9 @@ import { useQuery } from '@apollo/client';
 import GetTrades from '../../../../graphql/Queries/Trades'
 
 import React, { useContext, useEffect, useState } from "react"
-import { Table, Tag, Space, Button } from 'antd';
+import { Table, Tag, Space, Button, Badge } from 'antd';
 import { Context } from '../../../../context/Context';
+import { CaretUpOutlined }from '@ant-design/icons';
 
 const columns = [
     {
@@ -40,7 +41,22 @@ const columns = [
         dataIndex: 'user',
         render: (user, row) => pmButton(user, row)
     },
+    {
+      title: 'Trust',
+      dataIndex: 'user',
+      render: user => trustLevels(user)
+    },
   ];
+
+const trustLevels = (user) => {
+  return (
+    <Space>
+      <Badge showZero count={user.reports.length} />
+      <Badge showZero style={{ backgroundColor: '#52c41a' }}
+ count={user.vouches.length} />
+    </Space>
+  )
+}
 
 const currencyWithIcon = (currency) => {
 
@@ -64,7 +80,7 @@ const pmButton = (user, row) => {
     const [buttonValue, setButtonValue] = useState("Whisper")
 
     return (
-      <Button type="primary" onClick={(e) => copyToClipboard(e, user, row, setButtonValue)}>{buttonValue}</Button>
+      <Button type="default" onClick={(e) => copyToClipboard(e, user, row, setButtonValue)}>{buttonValue}</Button>
     )
 }
 
@@ -72,13 +88,13 @@ const statusBadge = (user) => {
   console.log(user)
   if(user.user.status == true) {
     return (
-      <Tag color="#87d068">
-        Online
+      <Tag color="#52c41a">
+        Avaliable
       </Tag>
     )
   } else {
-    return ( <Tag color="#f50" style="width:100%">
-      Offline
+    return ( <Tag color="#ff4d4f" style="width:100%">
+      Sold
     </Tag> )
   }
 }

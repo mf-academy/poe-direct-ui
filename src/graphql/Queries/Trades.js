@@ -11,6 +11,12 @@ const trades = gql`
         id
         name
         status
+        reports {
+          id
+        }
+        vouches {
+          id
+        }
       }
       service { 
         name
