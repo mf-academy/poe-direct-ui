@@ -13,6 +13,9 @@
 @font-size-base: 14px; // major text font size
 @primary-color: rgb(185, 156, 116);
 @border-color-base: #050505;
+@select-item-selected-color: #1b1b1b;
+@background-color-light: #7d7d7d;
+@item-hover-bg: #7d7d7d;
 @heading-color: #d6d6ce; // heading text color
 @text-color: #d6d6ce; // major text color
 @text-color-secondary: #bb9e74; // secondary text color
@@ -24,8 +27,12 @@
 @layout-footer-background:  transparent;
 @table-border-color: #050505;
 
+table {
+  border: 1px solid #000;
+}
+
 .content-table {
-   background-color: #1b1b1b;
+   border-color: black;
  }
 th.ant-table-cell {
   background-color: #1b1b1b !important;
@@ -77,6 +84,13 @@ th.ant-table-cell {
   line-height: 1.5;
 }
 
+.WelcomeCard {
+  border-color: black;
+}
+
+.WelcomeCard .ant-card-head {
+  border-color: black;
+}
 
 .Layout {
   background-color: transparent;
@@ -94,10 +108,6 @@ body {
 .SidebarLoadingIndicator {
   margin: auto;
   width: 50%;
-}
-
-table {
-  border-color: black
 }
 
 body,html {
